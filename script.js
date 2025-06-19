@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ¡IMPORTANTE! Reemplaza con la URL de tu backend LOCAL para pruebas.
     // Cuando despliegues en Render, cambiarás esto a la URL pública de tu backend en Render.
-    const BACKEND_URL = 'https://my-google-sheets-backend.onrender.com/'; // URL de tu backend local
+    const BACKEND_URL = 'https://my-google-sheets-backend.onrender.com'; // URL de tu backend local
 
     checkButton.addEventListener('click', async () => {
         const valor = userInput.value.trim(); // Obtiene el valor del input y elimina espacios en blanco
