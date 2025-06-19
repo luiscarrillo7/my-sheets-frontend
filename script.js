@@ -32,18 +32,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (response.ok) {
                 if (data.exists) {
-                    // **** CAMBIO AQUÍ: Mostrar todos los nuevos campos ****
+                    // **** CAMBIO CLAVE AQUÍ: Uso de <strong> para encabezados y estilos en línea/clases para colores ****
                     messageDisplay.innerHTML = `
                         <p class="message-success">¡Usuario existe!</p>
-                        <p>ID: ${data.idUsuario}</p>
-                        <p>Nombre: ${data.nombre}</p>
-                        <p>Cargo: ${data.cargo}</p>
-                        <p>EESS: ${data.eess}</p>
-                        <p>RIS: ${data.ris}</p>
-                        <p>Horas: ${data.horas}</p>
-                        <p>Puntaje: ${data.puntaje}</p>
+                        <p style="color: black;"><strong>ID:</strong> <span>${data.idUsuario}</span></p>
+                        <p style="color: black;"><strong>Nombre:</strong> <span>${data.nombre}</span></p>
+                        <p style="color: black;"><strong>Cargo:</strong> <span>${data.cargo}</span></p>
+                        <p style="color: black;"><strong>EESS:</strong> <span>${data.eess}</span></p>
+                        <p style="color: black;"><strong>RIS:</strong> <span>${data.ris}</span></p>
+                        <p style="color: black;"><strong>Horas:</strong> <span>${data.horas}</span></p>
+                        <p style="color: black;"><strong>Puntaje:</strong> <span>${data.puntaje}</span></p>
                     `;
-                    messageDisplay.className = 'message-success'; // Mantén la clase para el estilo general si aplica
+                    messageDisplay.className = 'message-container'; // Puedes usar una clase más genérica si no quieres que todo el bloque tenga el color del 'message-success'
+
                 } else {
                     messageDisplay.textContent = 'Usuario no encontrado.';
                     messageDisplay.className = 'message-error';
