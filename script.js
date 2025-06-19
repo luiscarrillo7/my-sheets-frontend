@@ -32,9 +32,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (response.ok) {
                 if (data.exists) {
-                    // ** CAMBIO AQUÍ: Mostrar nombre y apellido **
-                    messageDisplay.textContent = `¡Usuario existe! Nombre: ${data.nombre}, Apellido: ${data.apellido}`;
-                    messageDisplay.className = 'message-success';
+                    // **** CAMBIO AQUÍ: Mostrar todos los nuevos campos ****
+                    messageDisplay.innerHTML = `
+                        <p class="message-success">¡Usuario existe!</p>
+                        <p>ID: ${data.idUsuario}</p>
+                        <p>Nombre: ${data.nombre}</p>
+                        <p>Cargo: ${data.cargo}</p>
+                        <p>EESS: ${data.eess}</p>
+                        <p>RIS: ${data.ris}</p>
+                        <p>Horas: ${data.horas}</p>
+                        <p>Puntaje: ${data.puntaje}</p>
+                    `;
+                    messageDisplay.className = 'message-success'; // Mantén la clase para el estilo general si aplica
                 } else {
                     messageDisplay.textContent = 'Usuario no encontrado.';
                     messageDisplay.className = 'message-error';
