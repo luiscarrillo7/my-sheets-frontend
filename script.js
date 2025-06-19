@@ -4,59 +4,53 @@ document.addEventListener('DOMContentLoaded', () => {
     const checkButton = document.getElementById('checkButton');
     const messageDisplay = document.getElementById('message');
 
-    // ¡IMPORTANTE! Reemplaza con la URL de tu backend LOCAL para pruebas.
-    // Cuando despliegues en Render, cambiarás esto a la URL pública de tu backend en Render.
-    const BACKEND_URL = 'https://my-google-sheets-backend.onrender.com'; // ¡Esta es la correcta, sin barra final!
+    const BACKEND_URL = 'https://my-google-sheets-backend.onrender.com';
 
     checkButton.addEventListener('click', async () => {
-        const valor = userInput.value.trim(); // Obtiene el valor del input y elimina espacios en blanco
+        const valor = userInput.value.trim();
 
-        // Validar que el input no esté vacío
         if (!valor) {
             messageDisplay.textContent = 'Por favor, ingresa un número de usuario.';
-            messageDisplay.className = 'message-error'; // Aplica estilo de error
-            return; // Detiene la ejecución si está vacío
+            messageDisplay.className = 'message-error';
+            return;
         }
 
-        // Limpiar mensaje anterior y deshabilitar botón mientras se procesa
         messageDisplay.textContent = 'Verificando...';
-        messageDisplay.className = ''; // Limpia clases de estilo previas
-        checkButton.disabled = true; // Deshabilita el botón para evitar múltiples clics
+        messageDisplay.className = '';
+        checkButton.disabled = true;
 
         try {
-            // Realiza la solicitud POST a tu backend
             const response = await fetch(`${BACKEND_URL}/api/check-user`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json', // Indica que el cuerpo es JSON
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ valor: valor }), // Envía el valor como JSON
+                body: JSON.stringify({ valor: valor }),
             });
 
-            const data = await response.json(); // Parsea la respuesta JSON del backend
+            const data = await response.json();
 
-            if (response.ok) { // Verifica si la respuesta HTTP es exitosa (código 200)
+            if (response.ok) {
                 if (data.exists) {
-                    messageDisplay.textContent = '¡Usuario existe!';
-                    messageDisplay.className = 'message-success'; // Aplica estilo de éxito
+                    // ** CAMBIO AQUÍ: Mostrar nombre y apellido **
+                    messageDisplay.textContent = `¡Usuario existe! Nombre: ${data.nombre}, Apellido: ${data.apellido}`;
+                    messageDisplay.className = 'message-success';
                 } else {
                     messageDisplay.textContent = 'Usuario no encontrado.';
-                    messageDisplay.className = 'message-error'; // Aplica estilo de error
+                    messageDisplay.className = 'message-error';
                 }
             } else {
-                // Si la respuesta no es 200 OK (ej. 400, 500)
                 console.error('Error del servidor:', data.message || response.statusText);
                 messageDisplay.textContent = `Error: ${data.message || 'Algo salió mal en el servidor.'}`;
                 messageDisplay.className = 'message-error';
             }
 
         } catch (error) {
-            // Captura errores de red o cualquier otro error durante la solicitud
             console.error('Error al comunicarse con el backend:', error);
             messageDisplay.textContent = 'Error de conexión. Asegúrate de que el backend esté ejecutándose.';
             messageDisplay.className = 'message-error';
         } finally {
-            checkButton.disabled = false; // Vuelve a habilitar el botón
+            checkButton.disabled = false;
         }
     });
 });
