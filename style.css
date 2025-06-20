@@ -1,78 +1,121 @@
 /* my-sheets-frontend/style.css */
+
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #f0f2f5; /* Un gris suave */
     margin: 0;
-    color: #333;
+    background-color: #f0f2f5;
+    flex-direction: column;
 }
 
 .container {
-    background-color: #ffffff;
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    width: 100%;
+    width: 90%;
     max-width: 400px;
-    box-sizing: border-box; /* Incluye padding en el ancho total */
+    min-height: 300px; /* Mantener la altura mínima */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra el contenido verticalmente */
+    align-items: center;
 }
 
-h1 {
-    color: #0056b3;
-    margin-bottom: 25px;
-    font-size: 1.8em;
-}
-
-input {
-    padding: 12px 15px;
+h2 {
     margin-bottom: 20px;
-    border: 1px solid #ced4da;
-    border-radius: 6px;
-    width: calc(100% - 30px); /* Ancho completo menos padding */
-    font-size: 1em;
+    color: #333;
+}
+
+#inputSection {
+    width: 100%; /* Asegura que ocupe el 100% del contenedor */
+    display: flex; /* Para alinear input y botón */
+    flex-direction: column;
+    align-items: center;
+}
+
+input[type="text"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
     box-sizing: border-box;
 }
 
-input:focus {
-    border-color: #007bff;
-    outline: none;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-}
-
 button {
-    padding: 12px 25px;
     background-color: #007bff;
     color: white;
+    padding: 10px 20px;
     border: none;
-    border-radius: 6px;
+    border-radius: 4px;
     cursor: pointer;
-    font-size: 1.1em;
+    font-size: 16px;
     transition: background-color 0.3s ease;
-    width: 100%;
 }
 
 button:hover {
     background-color: #0056b3;
 }
 
-button:active {
-    background-color: #004085;
+button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
 }
 
-#message {
-    margin-top: 25px;
-    font-weight: bold;
-    font-size: 1.1em;
+/* Estilos para el botón pequeño "Cerrar" */
+.small-button {
+    background-color: #6c757d; /* Un color gris */
+    padding: 8px 15px; /* Un poco más pequeño */
+    font-size: 14px;
+    margin-top: 20px; /* Espacio superior */
+}
+
+.small-button:hover {
+    background-color: #5a6268;
+}
+
+/* Estilos para la sección de resultados */
+#resultsSection {
+    width: 100%;
+    /* display: none; */ /* Esto lo manejaremos con JavaScript, no lo pongas aquí */
+    padding-top: 10px; /* Para dar un pequeño espacio si es necesario */
+}
+
+
+/* Estilos de mensajes */
+#message { /* Usamos el ID para asegurarnos que se aplique */
+    margin-top: 0; /* Eliminar margen superior si los p internos ya lo tienen */
+    text-align: center; /* Centrar el bloque de mensaje */
 }
 
 .message-success {
     color: #28a745; /* Verde para éxito */
+    font-weight: bold;
+    margin-bottom: 10px; /* Espacio después del título "Usuario existe" */
 }
 
 .message-error {
     color: #dc3545; /* Rojo para error */
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+/* Estilos específicos para los párrafos de datos dentro de #message */
+#message p {
+    color: black;
+    margin: 3px 0;
+    text-align: left; /* Alinea el texto a la izquierda */
+    width: 100%;
+    box-sizing: border-box; /* Incluir padding/border en el width */
+    padding-left: 10%; /* Pequeño indentado para los detalles */
+}
+
+#message strong {
+    font-weight: bold;
 }
