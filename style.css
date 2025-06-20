@@ -5,11 +5,17 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    /* QUITAMOS min-height: 100vh; AQUÍ para que el body se ajuste a su contenido */
+    height: 100%; /* El body ocupará el 100% de la altura del html dentro del iframe */
     margin: 0;
     background-color: #f0f2f5;
     flex-direction: column;
 }
+
+html { /* Aseguramos que html también ocupe el 100% de la altura del iframe */
+    height: 100%;
+}
+
 
 .container {
     background-color: #fff;
@@ -19,10 +25,10 @@ body {
     text-align: center;
     width: 90%;
     max-width: 400px;
-    min-height: 300px; /* Mantener la altura mínima */
+    min-height: auto; /* IMPORTANTE: Dejar que la altura se ajuste al contenido, no una altura mínima fija */
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centra el contenido verticalmente */
+    justify-content: center;
     align-items: center;
 }
 
@@ -32,8 +38,8 @@ h2 {
 }
 
 #inputSection {
-    width: 100%; /* Asegura que ocupe el 100% del contenedor */
-    display: flex; /* Para alinear input y botón */
+    width: 100%;
+    display: flex;
     flex-direction: column;
     align-items: center;
 }
@@ -67,53 +73,48 @@ button:disabled {
     cursor: not-allowed;
 }
 
-/* Estilos para el botón pequeño "Cerrar" */
 .small-button {
-    background-color: #6c757d; /* Un color gris */
-    padding: 8px 15px; /* Un poco más pequeño */
+    background-color: #6c757d;
+    padding: 8px 15px;
     font-size: 14px;
-    margin-top: 20px; /* Espacio superior */
+    margin-top: 20px;
 }
 
 .small-button:hover {
     background-color: #5a6268;
 }
 
-/* Estilos para la sección de resultados */
 #resultsSection {
     width: 100%;
-    /* display: none; */ /* Esto lo manejaremos con JavaScript, no lo pongas aquí */
-    padding-top: 10px; /* Para dar un pequeño espacio si es necesario */
+    padding-top: 10px;
 }
 
-
 /* Estilos de mensajes */
-#message { /* Usamos el ID para asegurarnos que se aplique */
-    margin-top: 0; /* Eliminar margen superior si los p internos ya lo tienen */
-    text-align: center; /* Centrar el bloque de mensaje */
+#message {
+    margin-top: 0;
+    text-align: center;
 }
 
 .message-success {
-    color: #28a745; /* Verde para éxito */
+    color: #28a745;
     font-weight: bold;
-    margin-bottom: 10px; /* Espacio después del título "Usuario existe" */
+    margin-bottom: 10px;
 }
 
 .message-error {
-    color: #dc3545; /* Rojo para error */
+    color: #dc3545;
     font-weight: bold;
     margin-top: 20px;
     margin-bottom: 5px;
 }
 
-/* Estilos específicos para los párrafos de datos dentro de #message */
 #message p {
     color: black;
     margin: 3px 0;
-    text-align: left; /* Alinea el texto a la izquierda */
+    text-align: left;
     width: 100%;
-    box-sizing: border-box; /* Incluir padding/border en el width */
-    padding-left: 10%; /* Pequeño indentado para los detalles */
+    box-sizing: border-box;
+    padding-left: 10%;
 }
 
 #message strong {
