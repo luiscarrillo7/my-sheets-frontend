@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (response.ok) {
                 if (data.exists) {
                     messageDisplay.innerHTML = `
-                        <p class="message-success">¡Usuario existe!</p>
+                        <p class="message-success">¡Bienvenido!</p>
                         <p class="message-detail"><strong>ID:</strong> <span>${data.idUsuario}</span></p>
                         <p class="message-detail"><strong>Nombre:</strong> <span>${data.nombre}</span></p>
                         <p class="message-detail"><strong>Cargo:</strong> <span>${data.cargo}</span></p>
