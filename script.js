@@ -1,4 +1,3 @@
-// my-sheets-frontend/script.js
 document.addEventListener('DOMContentLoaded', () => {
     const userInput = document.getElementById('userInput');
     const checkButton = document.getElementById('checkButton');
@@ -32,18 +31,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (response.ok) {
                 if (data.exists) {
-                    // **** CAMBIO CLAVE AQUÍ: Uso de <strong> para encabezados y estilos en línea/clases para colores ****
                     messageDisplay.innerHTML = `
                         <p class="message-success">¡Usuario existe!</p>
-                        <p style="color: black;"><strong>ID:</strong> <span>${data.idUsuario}</span></p>
-                        <p style="color: black;"><strong>Nombre:</strong> <span>${data.nombre}</span></p>
-                        <p style="color: black;"><strong>Cargo:</strong> <span>${data.cargo}</span></p>
-                        <p style="color: black;"><strong>EESS:</strong> <span>${data.eess}</span></p>
-                        <p style="color: black;"><strong>RIS:</strong> <span>${data.ris}</span></p>
-                        <p style="color: black;"><strong>Horas:</strong> <span>${data.horas}</span></p>
-                        <p style="color: black;"><strong>Puntaje:</strong> <span>${data.puntaje}</span></p>
+                        <p class="message-detail"><strong>ID:</strong> <span>${data.idUsuario}</span></p>
+                        <p class="message-detail"><strong>Nombre:</strong> <span>${data.nombre}</span></p>
+                        <p class="message-detail"><strong>Cargo:</strong> <span>${data.cargo}</span></p>
+                        <p class="message-detail"><strong>EESS:</strong> <span>${data.eess}</span></p>
+                        <p class="message-detail"><strong>RIS:</strong> <span>${data.ris}</span></p>
+                        <p class="message-detail"><strong>Horas:</strong> <span>${data.horas}</span></p>
+                        <p class="message-detail"><strong>Puntaje:</strong> <span>${data.puntaje}</span></p>
                     `;
-                    messageDisplay.className = 'message-container'; // Puedes usar una clase más genérica si no quieres que todo el bloque tenga el color del 'message-success'
+                    messageDisplay.className = 'message-container';
 
                 } else {
                     messageDisplay.textContent = 'Usuario no encontrado.';

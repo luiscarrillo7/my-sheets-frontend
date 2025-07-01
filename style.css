@@ -1,21 +1,30 @@
 /* my-sheets-frontend/style.css */
 
+/* Base Styles */
 body {
     font-family: sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
-    /* QUITAMOS min-height: 100vh; AQUÍ para que el body se ajuste a su contenido */
-    height: 100%; /* El body ocupará el 100% de la altura del html dentro del iframe */
+    min-height: 100vh; /* Usamos min-height para asegurar que el body siempre ocupe toda la altura */
     margin: 0;
     background-color: #f0f2f5;
     flex-direction: column;
+    padding: 20px; /* Añadido padding para evitar que el contenido toque los bordes en pantallas muy pequeñas */
+    box-sizing: border-box; /* Incluir padding en el ancho/alto total */
 }
 
-html { /* Aseguramos que html también ocupe el 100% de la altura del iframe */
-    height: 100%;
-}
+/* No es necesario html { height: 100%; } si body tiene min-height: 100vh; */
 
+.top-image {
+    max-width: 100%; /* La imagen no superará el ancho de su contenedor */
+    height: auto;    /* Mantiene la proporción */
+    display: block;
+    margin-bottom: 20px; /* Espacio debajo de la imagen */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* Se centrará en PC con el margin auto en media query */
+}
 
 .container {
     background-color: #fff;
@@ -23,45 +32,42 @@ html { /* Aseguramos que html también ocupe el 100% de la altura del iframe */
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    width: 90%;
-    max-width: 400px;
-    min-height: auto; /* IMPORTANTE: Dejar que la altura se ajuste al contenido, no una altura mínima fija */
+    width: 90%; /* Ocupa el 90% del ancho disponible */
+    max-width: 400px; /* Limite máximo para móviles/pequeñas */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    box-sizing: border-box; /* Incluir padding en el ancho/alto total */
 }
 
-h2 {
-    margin-bottom: 20px;
+h1 { /* Cambiado de h2 a h1, ya que tu HTML usa h1 */
+    margin-bottom: 25px; /* Más espacio debajo del título */
     color: #333;
-}
-
-#inputSection {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    font-size: 1.8em; /* Tamaño de fuente base para el título */
 }
 
 input[type="text"] {
-    width: calc(100% - 20px);
-    padding: 10px;
+    width: 100%; /* Ocupa el 100% del ancho del contenedor .container */
+    padding: 12px; /* Un poco más de padding para mejor tacto */
     margin-bottom: 20px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    box-sizing: border-box;
+    box-sizing: border-box; /* Esencial para que el padding no añada ancho */
+    font-size: 1em; /* Tamaño de fuente base */
 }
 
 button {
     background-color: #007bff;
     color: white;
-    padding: 10px 20px;
+    padding: 12px 25px; /* Un poco más de padding */
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 1.1em; /* Un poco más grande la fuente */
     transition: background-color 0.3s ease;
+    width: 100%; /* Botón al 100% en móvil para mejor interacción */
+    max-width: 250px; /* Limita el ancho máximo del botón */
 }
 
 button:hover {
@@ -73,58 +79,88 @@ button:disabled {
     cursor: not-allowed;
 }
 
-.small-button {
-    background-color: #6c757d;
-    padding: 8px 15px;
-    font-size: 14px;
-    margin-top: 20px;
-}
-
-.small-button:hover {
-    background-color: #5a6268;
-}
-
-#resultsSection {
-    width: 100%;
-    padding-top: 10px;
-}
+/* Las clases .small-button y #resultsSection no están siendo usadas en tu HTML,
+   considera eliminarlas si no las vas a usar.
+   #inputSection tampoco se usa. */
 
 /* Estilos de mensajes */
 #message {
-    margin-top: 0;
+    margin-top: 25px; /* Espacio superior */
     text-align: center;
+    width: 100%; /* Ocupa todo el ancho */
 }
 
 .message-success {
     color: #28a745;
     font-weight: bold;
     margin-bottom: 10px;
+    font-size: 1.1em;
 }
 
 .message-error {
     color: #dc3545;
     font-weight: bold;
-    margin-top: 20px;
+    margin-top: 0; /* Ya tenemos margin-top en #message */
     margin-bottom: 5px;
+    font-size: 1.1em;
 }
 
-#message p {
-    color: black;
-    margin: 3px 0;
+/* Nueva clase para los detalles del mensaje para control de color en CSS */
+.message-detail {
+    color: #333; /* Color oscuro para el texto de los detalles */
+    margin: 6px 0; /* Espacio entre las líneas de detalle */
     text-align: left;
     width: 100%;
     box-sizing: border-box;
-    padding-left: 10%;
+    padding-left: 10%; /* Indentación para las líneas de detalle */
 }
 
-#message strong {
-    font-weight: bold;
+/* MEDIA QUERIES para pantallas más grandes (PC/Tablet) */
+@media (min-width: 768px) {
+    .top-image {
+        max-width: 450px; /* Limita el ancho máximo de la imagen en pantallas de PC */
+        margin-left: auto; /* Centra la imagen */
+        margin-right: auto; /* Centra la imagen */
+        margin-bottom: 30px; /* Más espacio debajo del logo en PC */
+    }
+
+    .container {
+        max-width: 550px; /* Aumenta el ancho máximo del formulario en PC */
+        padding: 40px; /* Mayor padding en el formulario para PC */
+    }
+
+    h1 {
+        font-size: 2.2em; /* Título un poco más grande en PC */
+    }
+
+    input[type="text"] {
+        padding: 14px; /* Más padding en PC */
+        font-size: 1.1em; /* Fuente un poco más grande en PC */
+    }
+
+    button {
+        padding: 14px 30px; /* Más padding y texto más grande en PC */
+        font-size: 1.2em;
+        max-width: 300px; /* Botón más ancho pero con límite en PC */
+    }
+
+    #message {
+        margin-top: 35px; /* Más espacio superior para el mensaje en PC */
+    }
+
+    .message-detail {
+        margin: 8px 0; /* Más espacio entre detalles en PC */
+        padding-left: 15%; /* Mayor indentación en PC */
+    }
 }
-.top-image {
-    max-width: 100%; /* Asegura que la imagen no se desborde de su contenedor */
-    height: auto;    /* Mantiene la proporción de la imagen al escalar */
-    display: block;  /* Elimina el espacio extra debajo de la imagen (comportamiento inline) */
-    margin-bottom: 20px; /* Espacio entre la imagen y el contenedor principal */
-    border-radius: 8px; /* Opcional: para que coincida con el border-radius del contenedor */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Opcional: una pequeña sombra */
+
+/* Opcional: Media Query para pantallas muy grandes */
+@media (min-width: 1200px) {
+    .top-image {
+        max-width: 550px; /* Aún más grande en pantallas muy grandes */
+    }
+
+    .container {
+        max-width: 600px; /* Aún más ancho en pantallas muy grandes */
+    }
 }
