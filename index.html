@@ -140,7 +140,7 @@
   </div>
 
   <script>
-    const API_URL = "https://TU-API-ENDPOINT/leer-sheet"; // 🔹 reemplaza con la URL de tu API
+    const API_URL = "http://luiscarrillo7-001-site2.jtempurl.com/leer-sheet"; // 🔹 reemplaza con la URL de tu API
 
     document.getElementById("buscarBtn").addEventListener("click", async () => {
       const dni = document.getElementById("dniInput").value.trim();
@@ -154,7 +154,7 @@
       messageDiv.innerHTML = `<p>⏳ Buscando...</p>`;
 
       try {
-        const response = await fetch(`${API_URL}?dni=${dni}`);
+        const response = await fetch(`${API_URL}/${dni}`);
         const data = await response.json();
 
         if (data && data.datos) {
