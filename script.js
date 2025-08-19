@@ -3,75 +3,57 @@ document.addEventListener('DOMContentLoaded', () => {
     const checkButton = document.getElementById('checkButton');
     const messageDisplay = document.getElementById('message');
 
-    const BACKEND_URL = 'https://my-google-sheets-backend.onrender.com';
-
-    console.log('Frontend: DOM cargado. Script listo.');
+    // Tu nuevo backend en SmartASP
+    const BACKEND_URL = 'http://luiscarrillo7-001-site2.jtempurl.com';
 
     checkButton.addEventListener('click', async () => {
-        console.log('Frontend: Botón "Consultar" clicado.');
-
         const valor = userInput.value.trim();
 
-        console.log('Frontend: Valor a enviar al backend:', valor);
-
         if (!valor) {
-            messageDisplay.textContent = 'Por favor, ingresa un número de usuario.';
+            messageDisplay.textContent = 'Por favor, ingresa un DNI.';
             messageDisplay.className = 'message-error';
-            console.log('Frontend: Valor vacío. Mostrando mensaje de error.');
             return;
         }
 
         messageDisplay.textContent = 'Verificando...';
         messageDisplay.className = '';
         checkButton.disabled = true;
-        console.log('Frontend: Iniciando verificación con el backend...');
 
         try {
-            const response = await fetch(`${BACKEND_URL}/api/check-user`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ valor: valor }),
-            });
+            // Llamada a tu API con GET
+            const response = await fetch(`${BACKEND_URL}/leer-sheet/${valor}`);
 
-            console.log('Frontend: Respuesta del backend recibida. Estado HTTP:', response.status);
+            if (!response.ok) {
+                throw new Error(`Error HTTP: ${response.status}`);
+            }
 
             const data = await response.json();
 
-            console.log('Frontend: Datos parseados del backend:', data);
+            if (data && data.length > 0) {
+                const usuario = data[0]; // primer resultado encontrado
 
-            if (response.ok) {
-                if (data.exists) {
-                    messageDisplay.innerHTML = `
-                        <p class="message-success">¡Bienvenido!</p>
-                        <p class="message-detail"><strong>ID:</strong> <span>${data.idUsuario}</span></p>
-                        <p class="message-detail"><strong>Nombre:</strong> <span>${data.nombre}</span></p>
-                        <p class="message-detail"><strong>Cargo:</strong> <span>${data.cargo}</span></p>
-                        <p class="message-detail"><strong>EESS:</strong> <span>${data.eess}</span></p> <p class="message-detail"><strong>RIS:</strong> <span>${data.ris}</span></p>
-                        <p class="message-detail"><strong>Horas:</strong> <span>${data.horas}</span></p> <p class="message-detail"><strong>Puntaje:</strong> <span>${data.puntaje}</span></p> `;
-                    messageDisplay.className = 'message-container';
-                    console.log('Frontend: Usuario encontrado. Mostrando detalles.');
-                } else {
-                    messageDisplay.textContent = 'Usuario no encontrado.';
-                    messageDisplay.className = 'message-error';
-                    console.log('Frontend: Usuario NO encontrado. Mostrando mensaje de error.');
-                }
+                messageDisplay.innerHTML = `
+                    <p class="message-success">¡Usuario encontrado!</p>
+                    <p class="message-detail"><strong>ID:</strong> <span>${usuario.ID || ''}</span></p>
+                    <p class="message-detail"><strong>Nombre:</strong> <span>${usuario.NOMBRE || ''}</span></p>
+                    <p class="message-detail"><strong>Cargo:</strong> <span>${usuario.CARGO || ''}</span></p>
+                    <p class="message-detail"><strong>EESS:</strong> <span>${usuario.EESS || ''}</span></p>
+                    <p class="message-detail"><strong>RIS:</strong> <span>${usuario.RIS || ''}</span></p>
+                    <p class="message-detail"><strong>Horas:</strong> <span>${usuario.HORAS || ''}</span></p>
+                    <p class="message-detail"><strong>Puntaje:</strong> <span>${usuario.PUNTAJE || ''}</span></p>
+                `;
+                messageDisplay.className = 'message-container';
             } else {
-                console.error('Frontend: Error del servidor:', data.message || response.statusText);
-                messageDisplay.textContent = `Error: ${data.message || 'Algo salió mal en el servidor.'}`;
+                messageDisplay.textContent = 'Usuario no encontrado.';
                 messageDisplay.className = 'message-error';
-                console.log('Frontend: Error en la respuesta HTTP del backend.');
             }
 
         } catch (error) {
-            console.error('Frontend: Error al comunicarse con el backend:', error);
-            messageDisplay.textContent = 'Error de conexión. Asegúrate de que el backend esté ejecutándose.';
+            console.error('Error al comunicarse con el backend:', error);
+            messageDisplay.textContent = 'Error de conexión. Verifica tu API.';
             messageDisplay.className = 'message-error';
-            console.log('Frontend: Excepción en la comunicación con el backend.');
         } finally {
             checkButton.disabled = false;
-            console.log('Frontend: Proceso de verificación finalizado. Botón habilitado.');
         }
     });
 });
