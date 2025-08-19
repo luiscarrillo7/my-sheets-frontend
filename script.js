@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const messageDisplay = document.getElementById('message');
 
     // Tu nuevo backend en SmartASP
-    const BACKEND_URL = 'http://luiscarrillo7-001-site2.jtempurl.com';
+    const BACKEND_URL = 'http://api-capacitacion.googlesites.cloud';
 
     checkButton.addEventListener('click', async () => {
         const valor = userInput.value.trim();
